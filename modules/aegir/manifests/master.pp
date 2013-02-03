@@ -89,23 +89,5 @@ class aegir::master (
     require => Package['aegir'],
     owner => 'aegir'
   }
-
-  # Backup cleaner
-  file { '/var/aegir/aegir-backup-cleaner.py':
-    ensure  => present,
-    owner   => 'aegir',
-    group   => 'aegir',
-    mode    => '0544',
-    require => User['aegir'],
-    source  => 'puppet:///modules/aegir/aegir-backup-cleaner.py'
-  }
-
-  cron { "aegir-cleaner-cron":
-    user    => 'aegir',
-    hour    => 3,
-    minute  => 0,
-    require => File['/var/aegir/aegir-backup-cleaner.py'],
-    command => "/var/aegir/aegir-backup-cleaner.py >> /var/aegir/cleaner.log"
-  }
   Package { require => Exec['apt-get update'] }
 }
