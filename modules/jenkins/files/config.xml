@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson>
+  <disabledAdministrativeMonitors/>
+  <version>1.469</version>
+  <numExecutors>2</numExecutors>
+  <mode>NORMAL</mode>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="hudson.security.GlobalMatrixAuthorizationStrategy">
+    <permission>hudson.model.Computer.Configure:jenkins</permission>
+    <permission>hudson.model.Computer.Connect:jenkins</permission>
+    <permission>hudson.model.Computer.Create:jenkins</permission>
+    <permission>hudson.model.Computer.Delete:jenkins</permission>
+    <permission>hudson.model.Computer.Disconnect:jenkins</permission>
+    <permission>hudson.model.Hudson.Administer:jenkins</permission>
+    <permission>hudson.model.Hudson.ConfigureUpdateCenter:jenkins</permission>
+    <permission>hudson.model.Hudson.Read:jenkins</permission>
+    <permission>hudson.model.Hudson.RunScripts:jenkins</permission>
+    <permission>hudson.model.Hudson.UploadPlugins:jenkins</permission>
+    <permission>hudson.model.Item.Build:jenkins</permission>
+    <permission>hudson.model.Item.Cancel:jenkins</permission>
+    <permission>hudson.model.Item.Configure:jenkins</permission>
+    <permission>hudson.model.Item.Create:jenkins</permission>
+    <permission>hudson.model.Item.Delete:jenkins</permission>
+    <permission>hudson.model.Item.Discover:jenkins</permission>
+    <permission>hudson.model.Item.Read:jenkins</permission>
+    <permission>hudson.model.Item.Workspace:jenkins</permission>
+    <permission>hudson.model.Run.Delete:jenkins</permission>
+    <permission>hudson.model.Run.Update:jenkins</permission>
+    <permission>hudson.model.View.Configure:jenkins</permission>
+    <permission>hudson.model.View.Create:jenkins</permission>
+    <permission>hudson.model.View.Delete:jenkins</permission>
+    <permission>hudson.model.View.Read:jenkins</permission>
+    <permission>hudson.scm.SCM.Tag:jenkins</permission>
+  </authorizationStrategy>
+  <securityRealm class="hudson.security.PAMSecurityRealm">
+    <serviceName>sshd</serviceName>
+  </securityRealm>
+  <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
+  <workspaceDir>${ITEM_ROOTDIR}/workspace</workspaceDir>
+  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+  <markupFormatter class="hudson.markup.RawHtmlMarkupFormatter">
+    <disableSyntaxHighlighting>false</disableSyntaxHighlighting>
+  </markupFormatter>
+  <jdks/>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <clouds/>
+  <slaves/>
+  <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>All</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+    </hudson.model.AllView>
+  </views>
+  <primaryView>All</primaryView>
+  <slaveAgentPort>0</slaveAgentPort>
+  <label></label>
+  <nodeProperties/>
+  <globalNodeProperties/>
+</hudson>

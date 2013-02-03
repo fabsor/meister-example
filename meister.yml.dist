@@ -1,0 +1,88 @@
+---
+# The management server is the main
+# server which runs the puppet master.
+managementServer: mgmt
+
+# Tasks can be executed on nodes. This could be for instance be installing puppet.
+# All methods in the task file are exposed. Fabric is available for executing tasks on the machine.
+tasksModule: tasks
+
+# The default user is used when connecting to nodes through ssh.
+# This can be overriden on node level by specifying the "user" property.
+defaultUser: ubuntu
+
+# The default key to use.
+# This can be overriden on node level by specifying the "keyFile" property.
+defaultKeyFile: example.pem
+
+# The driver to use.
+driver:
+    name: aws
+    id: your-ec2-id
+    key: your-ec2-key
+    region: eu-west-1
+    defaultSecurityGroup: group
+    defaultZone: eu-west-1a
+    defaultKeyName: example
+
+# DNS Provider.
+DNS:
+    name: route53
+    id: your-route53-id
+    key: your-route53-key
+    defaultZone: fabsorize.me.
+
+# Security groups with firewall rules.
+securityGroups:
+    group:
+        description: Group1 description
+        rules:
+            - ip: 0.0.0.0/0
+              fromPort: 22
+              toPort: 22
+            - ip: 0.0.0.0/0
+              fromPort: 80
+              toPort: 80
+            - ip: 0.0.0.0/0
+              fromPort: 8180
+              toPort: 8180
+            - ip: 0.0.0.0/0
+              fromPort: 8140
+              toPort: 8140
+              # Specifying ^host will convert this entry to a real host ip.
+              # Specify :internal or :external to refer to either the internal
+              # or the external ip. external is default.
+            - ip: ^mgmt:internal
+              fromPort: 3306
+              toPort: 3306
+
+# The nodes to create.
+nodes:
+    mgmt:
+        size: m1.large
+        diskSize: 20 # Size in GB. Defaults to 8gb
+        externalDNS: mgmt.fabsorize.me.
+        internalDNS: mgmt.internal.fabsorize.me.
+        image: ami-c1aaabb5
+        tasks:
+            - name: set_hostname
+              arguments:
+                - mgmt
+            - install_puppet
+            - copy_manifests
+            - install_puppet_master
+    application1:
+        size: m1.large
+        diskSize: 20 # Size in GB. Defaults to 8gb
+        externalDNS: application1.fabsorize.me.
+        internalDNS: application1.internal.fabsorize.me.
+        image: ami-c1aaabb5
+        tasks:
+            - name: set_hostname
+              arguments:
+                  - application1
+            - install_puppet
+            - name: connect_to_master
+              arguments:
+                - application1
+                - mgmt

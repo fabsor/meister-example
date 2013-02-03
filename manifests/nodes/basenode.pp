@@ -1,0 +1,4 @@
+node basenode {
+  class { 'systools': }
+}
+
