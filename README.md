@@ -11,3 +11,4 @@ This is meant as a good starting point for getting a setup up and running.
 * Copy the meister.yml.dist to meister.yml and change the settings in there to something useful.
 * Go to manifests/nodes and edit the nodes so that domains and so on match your needs
 * Edit the tasks.py to match whatever domain names you will be using.
+* Run "make keys" to generate keys that will be used for communication between the machines.
