@@ -66,9 +66,14 @@ class jenkins ($port = '8180', $jenkins_user = 'aegir', $control_user = false) {
     owner => $jenkins_user
   }
   # Install git and ansicolor plugins by default.
-  jenkins::plugin { 'git':
+  jenkins::plugin { 'git-client':
     user => $jenkins_user,
     require => Package['git-core']
+  }
+
+  jenkins::plugin { 'git':
+    user => $jenkins_user,
+    require => Jenkins::Plugin['git-client']
   }
 
   jenkins::plugin { 'ansicolor':
