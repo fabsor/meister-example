@@ -71,6 +71,8 @@ nodes:
             - install_puppet
             - copy_manifests
             - install_puppet_master
+            - name: add_jenkins_user
+              arguments: [fabsor]
     application1:
         size: m1.large
         diskSize: 20 # Size in GB. Defaults to 8gb
