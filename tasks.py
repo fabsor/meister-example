@@ -29,6 +29,10 @@ def run_puppet():
     sudo("puppet agent --verbose --no-daemonize --certname=application1 --server=mgmt.fabsorize.me --onetime")
     sudo("service puppet start")
 
+def add_jenkins_user(user):
+    sudo("adduser {0}".format(user))
+    sudo("adduser {0} jenkins".format(user))
+
 def install_puppet_master():
     sudo("apt-get update")
     sudo("apt-get install puppetmaster")
