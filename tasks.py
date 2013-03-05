@@ -35,7 +35,7 @@ def add_jenkins_user(user):
 
 def install_puppet_master():
     sudo("apt-get update")
-    sudo("apt-get install puppetmaster")
+    sudo("apt-get install -y puppetmaster")
     sudo("rm -rf /etc/puppet/manifests")
     sudo("rm -rf /etc/puppet/modules")
     sudo("ln -s /home/ubuntu/puppet/manifests /etc/puppet/manifests")
