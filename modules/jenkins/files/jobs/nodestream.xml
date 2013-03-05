@@ -49,8 +49,10 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>./build
-      </command>
+      <command>if [ -d web ]; then
+  rm -rf web;
+fi
+drush5 make -y platform.make</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
       <command>export BUILD=&quot;$JOB_NAME-$BUILD_NUMBER&quot;
