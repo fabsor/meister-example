@@ -63,11 +63,24 @@
       </command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>export BUILD=&quot;$JOB_NAME-$currentbuild&quot;
-export BUILD_PATH=&quot;/srv/www/$BUILD&quot;
-export WEB_SERVER=&quot;@server_application1internalfabsorizeme&quot;
-mv &quot;$BUILD_PATH /var/aegir/backups/.&quot;
-cp -R &quot;$WORKSPACE/web&quot; $BUILD_PATH
+      <command>export BUILD="$JOB_NAME-$BUILD_NUMBER"
+export PLATFORM="nodestream-$PLATFORMNUMBER"
+export BUILD_PATH="/srv/www/$PLATFORM"
+export SITENAME="nodestream.fabsorize.me"
+export PLATFORMNAME="platform_nodestream_$PLATFORMNUMBER"
+export BACKUPNAME="/var/aegir/backups/${JOB_NAME}-${BUILD_NUMBER}-${SITENAME}"
+
+mv $BUILD_PATH $BACKUPNAME
+cp -R web "${BUILD_PATH}"
+rm -rf "${BUILD_PATH}/sites"
+mv "${BACKUPNAME}/sites" "${BUILD_PATH}/sites"
+
+drush  "@${SITENAME}" vset maintenance_mode -y 1 
+drush  "@${SITENAME}" sql-dump > "${BACKUPNAME}/dump.sql"
+drush  "@${PLATFORMNAME}" provision-verify -v
+drush  "@${SITENAME}" updatedb -y
+drush  "@${SITENAME}" cc all
+drush  "@${SITENAME}" vset maintenance_mode -y 0
       </command>
     </hudson.tasks.Shell>
   </builders>
