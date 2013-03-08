@@ -1,8 +1,9 @@
 node "mgmt" {
+  $server = "mgmt.example.com";
   class { 'systools': }
   class { 'puppet::master':
-    server => "mgmt.fabsorize.me",
-    certname => "mgmt.fabsorize.me"
+    server => $server,
+    certname => $server
   }
   class { 'drush': }
   class { 'jenkins': }
@@ -12,9 +13,9 @@ node "mgmt" {
     hostname => 'mgmt',
   }
   class { 'aegir::master':
-    hostmaster_url => 'mgmt.fabsorize.me',
+    hostmaster_url => $server,
     db_password => 'password',
-    email => 'fabian@sorqvist.nu',
+    email => 'admin@example.com',
   }
 
   jenkins::job { "nodestream":
